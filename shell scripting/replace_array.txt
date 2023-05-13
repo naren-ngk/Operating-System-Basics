@@ -1,0 +1,39 @@
+#!/bin/sh
+
+echo -n "No. of elements  =  "
+
+read n
+
+for (( i=0; i<$n; i++))
+
+do
+
+        echo -n "a[$i]  =  "
+
+        read a[$i]
+
+done
+
+echo -n "Enter number to be replaced in the array =  "
+
+read b
+
+echo -n "Enter the new number =  "
+
+read c
+
+
+for (( i=0; i<$n; i++))
+
+do
+        if [ "${a[$i]}" ==  "$b" ]
+        then
+                a[$i]=$c
+        fi
+done
+
+for (( i=0; i<$n; i++))
+
+do
+        echo ${a[$i]}
+done

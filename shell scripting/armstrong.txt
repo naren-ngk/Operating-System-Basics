@@ -1,0 +1,23 @@
+#!/bin/bash
+#Amstrong number
+echo "enter the range"
+read i
+read num
+while [ "$i" -le "$num" ]
+do
+        n=$i
+        sum=0
+                while [ "$n" -ne 0 ]
+                do
+                        rem=` expr $n % 10 `
+                        rem=` expr $rem \* $rem \* $rem `
+                        sum=` expr $sum + $rem `
+                        n=` expr $n / 10 `
+                done
+
+                if [ $sum -eq $i ]
+                then
+                        echo "$i is a amstrong number"
+                fi
+        i=` expr $i + 1 `
+done

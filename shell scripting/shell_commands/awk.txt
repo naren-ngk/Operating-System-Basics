@@ -1,0 +1,79 @@
+1. awk '{print}' employee.txt
+o/p:
+ajay manager account 45000
+sunil clerk account 25000
+varun manager sales 50000
+amit manager account 47000
+tarun peon sales 15000
+deepak clerk sales 23000
+sunil peon sales 13000
+satvik director purchase 80000
+
+2. awk '/manager/ {print}' employee.txt 
+o/p:
+ajay manager account 45000
+varun manager sales 50000
+amit manager account 47000 
+
+3. awk '{print $1,$4}' employee.txt 
+o/p:
+ajay 45000
+sunil 25000
+varun 50000
+amit 47000
+tarun 15000
+deepak 23000
+sunil 13000
+satvik 80000
+
+4. awk '{print NR,$0}' employee.txt 
+o/p:
+1 ajay manager account 45000
+2 sunil clerk account 25000
+3 varun manager sales 50000
+4 amit manager account 47000
+5 tarun peon sales 15000
+6 deepak clerk sales 23000
+7 sunil peon sales 13000
+8 satvik director purchase 80000 
+
+5. awk '{print $1,$NF}' employee.txt 
+o/p:
+ajay 45000
+sunil 25000
+varun 50000
+amit 47000
+tarun 15000
+deepak 23000
+sunil 13000
+satvik 80000
+
+6. awk 'NR==3, NR==6 {print NR,$0}' employee.txt
+o/p:
+3 varun manager sales 50000
+4 amit manager account 47000
+5 tarun peon sales 15000
+6 deepak clerk sales 23000 
+
+7.  awk '/manager/{print NR "- " $1}' employee.txt
+o/p:
+1- ajay
+3- varun
+4- amit
+
+8. awk '{if(length($0) > max) max = length($0)} END {print max}' employee.txt
+o/p:
+30
+
+9. awk 'END {print NR}' employee.txt
+o/p:
+8
+
+10. awk 'BEGIN { for(i=1;i<=6;i++) print "Sq of",i,"is",i*i}'
+o/p:
+Sq of 1 is 1
+Sq of 2 is 4
+Sq of 3 is 9
+Sq of 4 is 16
+Sq of 5 is 25
+Sq of 6 is 36 

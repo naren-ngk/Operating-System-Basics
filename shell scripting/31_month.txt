@@ -1,0 +1,23 @@
+#!/bin/bash
+
+#Write a shell script to print starting 4 months having 31 days.
+
+
+
+mon[0]="JAN"
+
+mon[1]="MAR"
+
+mon[2]="MAY"
+
+mon[3]="JUL"
+
+
+
+for ((i=0;i<4;i++))
+
+do
+
+        echo "${mon[i]}"
+
+done

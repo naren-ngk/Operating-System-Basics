@@ -1,0 +1,46 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <dirent.h>
+#define MAX_FILENAME_LENGTH 256
+#define TEXT_EXTENSION ".txt"
+
+int main() {
+    DIR *dir;
+    struct dirent *ent;
+    char dirname[] = "/home/s2021103506/OS/week_5";
+    char filename[MAX_FILENAME_LENGTH];
+
+    dir = opendir(dirname);
+    if (dir == NULL) {
+        perror("opendir");
+        return 1;
+    }
+    while ((ent = readdir(dir)) != NULL) {
+        if (ent->d_type == DT_REG) {
+
+            if (strlen(ent->d_name) >= strlen(TEXT_EXTENSION) &&
+                strcmp(ent->d_name + strlen(ent->d_name) - strlen(TEXT_EXTENSION), TEXT_EXTENSION) == 0) {
+
+                snprintf(filename, MAX_FILENAME_LENGTH, "%s/%s", dirname, ent->d_name);
+                FILE *file = fopen(filename, "r");
+                if (file == NULL) {
+                    perror("fopen");
+                    return 1;
+                }
+
+
+                char buffer[256];
+                while (fgets(buffer, sizeof(buffer), file) != NULL) {
+                    printf("%s", buffer);
+                }
+
+
+                fclose(file);
+            }
+        }
+    }
+    closedir(dir);
+
+    return 0;
+}

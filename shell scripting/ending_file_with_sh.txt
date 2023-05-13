@@ -1,0 +1,3 @@
+#!/bin/bash
+echo -n "no. of files:"
+ls | grep .sh |wc -l

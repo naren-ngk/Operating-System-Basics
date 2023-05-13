@@ -1,0 +1,14 @@
+#!/bin/bash
+
+echo "Enter a number: "
+
+read num
+
+s=1
+
+for((i=num;i>0;i--));
+do
+        s=` expr $s \* $i `
+done
+
+echo "Factorial: $s"

@@ -1,0 +1,83 @@
+#!/bin/sh
+
+echo -n "No. of elements  =  "
+
+read n
+
+for (( i=0; i<$n; i++))
+
+do
+
+        echo -n "a[$i]  =  "
+
+        read a[$i]
+
+done
+
+echo -n "Enter 1 for ascending and 2 for descending  =  "
+
+read w
+
+if [ "$w" == 1 ]
+
+then
+
+        for (( i=0; i<$n; i++))
+
+        do
+
+                for (( j=i+1; j<$n;j++))
+
+                do
+
+                        if [ "${a[$i]}" -gt "${a[$j]}" ]
+
+                        then
+
+                                temp=${a[$i]}
+
+                                a[$i]=${a[$j]}
+
+                                a[$j]=$temp
+
+                        fi
+
+                done
+
+        done
+
+else
+
+        for (( i=0; i<$n; i++))
+
+        do
+
+                for (( j=i+1; j<$n;j++))
+
+                do
+
+                        if [ "${a[$i]}" -lt "${a[$j]}" ]
+
+                        then
+
+                                temp=${a[$i]}
+
+                                a[$i]=${a[$j]}
+
+                                a[$j]=$temp
+
+                        fi
+
+                done
+
+        done
+
+fi
+
+for (( i=0; i<$n; i++))
+
+do
+
+        echo  ${a[$i]}
+
+done

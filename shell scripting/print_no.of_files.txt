@@ -1,0 +1,5 @@
+#!/bin/sh
+
+  echo "total files:"
+
+  ls | wc -l

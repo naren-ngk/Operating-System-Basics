@@ -1,0 +1,104 @@
+#include<stdio.h>
+#include<dirent.h>
+#include<string.h>
+int main()
+
+{
+
+        int i=0,n1,j;
+
+        char str[10];
+
+        DIR *dir;
+
+        struct dirent *a;
+
+
+        printf("Enter the string: ");
+
+        scanf("%s",str);
+
+        n1=strlen(str);
+
+
+        dir=opendir(".");
+
+
+        while((a=readdir(dir)) != NULL)
+
+        {
+
+                if(a->d_type == DT_DIR)
+
+                {
+
+                        DIR *dir1;
+
+                        struct dirent *b;
+
+                        dir1=opendir(a->d_name);
+
+
+                        while((b=readdir(dir1)) !=NULL)
+
+                        {
+
+                                int n=strlen(b->d_name);
+
+                                for(j=0;j!=n1;j++)
+
+                                {
+
+                                        if(b->d_name[j]==str[j])
+
+                                                continue;
+
+                                        else
+
+                                                break;
+
+                                }
+
+                                if(j == n1)
+
+                                        printf("%s\n", b->d_name);
+
+                        }
+
+                }
+
+
+                else
+
+
+{
+
+                        int n=strlen(a->d_name);
+
+                        for(i=0;i!=n1;i++)
+
+                        {
+
+                                if(a->d_name[i]==str[i])
+
+                                        continue;
+
+                                else
+
+                                        break;
+
+                        }
+
+                        if(i == n1)
+
+                                printf("%s\n", a->d_name);
+
+                }
+
+        }
+
+
+        closedir(dir);
+
+        return 0;
+}

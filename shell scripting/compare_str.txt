@@ -1,0 +1,24 @@
+#!/bin/bash
+
+#Write a shell script to read two strings and compare them display suitable messages
+
+
+
+echo "Enter 1st string"
+
+read str1
+
+
+echo "Enter 2nd string"
+
+read str2
+
+
+if [ "$str1" == "$str2" ]
+then
+        echo The strings are equal
+
+else
+        echo The strings are not equal
+
+fi

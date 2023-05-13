@@ -1,0 +1,99 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <signal.h>
+
+void signal_handler(int signal_number)
+{
+    sigset_t mask;
+
+    if(sigemptyset(&mask) == -1 || sigfillset(&mask) == -1)
+    {// initialize signal set || block all signals
+        perror("Failed to initialize the signal mask.");
+        return;
+    }
+
+    switch(signal_number)
+    {
+        case SIGUSR1:
+        {
+            if(sigprocmask(SIG_BLOCK, &mask, NULL) == -1)
+            { // entering critical zone
+                perror("sigprocmask(1)");
+                return;
+            } //---------------------
+
+            sleep(1);
+            system("rm file");          /* critical zone */
+            puts("child was removed.");
+
+              //--------------------
+            if(sigprocmask(SIG_UNBLOCK, &mask, NULL) == -1)
+            {// exiting critical zone
+                perror("1 : sigprocmask()");
+                return;
+            }
+
+            break;
+        }
+        case SIGUSR2:
+        {
+
+            if(sigprocmask(SIG_BLOCK, &mask, NULL) == -1)
+            {// entering critical zone
+                perror("2 : sigprocmask()");
+                return;
+            } //---------------------
+
+            sleep(1);
+            system("touch file");
+            puts("parent was created.");  /* critical zone */
+
+
+              // --------------------
+            if(sigprocmask(SIG_UNBLOCK, &mask, NULL) == -1)
+            {// exiting critical zone
+                perror("sigprocmask(2)");
+                return;
+            }
+
+            break;
+        }
+    }
+}
+
+int main(void)
+{
+    pid_t pid = fork();
+
+    struct sigaction sa;
+    sa.sa_handler = &signal_handler; // handler function
+    sa.sa_flags = SA_RESTART;
+
+    sigaction(SIGUSR1, &sa, NULL);
+    sigaction(SIGUSR2, &sa, NULL);
+
+    if(pid < 0)
+    {
+        perror("fork()");
+        return -1;
+    }
+
+    for(int i = 0; i < 10; ++i)
+    {
+        if(pid > 0) // parent - producer
+        {
+            sleep(2);
+            // signal -> file was created
+            kill(pid, SIGUSR1);
+            pause();
+        }
+        else // child - consumer
+        {
+            pause();
+            // signal -> file was removed
+            kill(getppid(), SIGUSR2);
+        }
+    }
+
+}

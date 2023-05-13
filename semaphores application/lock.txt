@@ -1,0 +1,37 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <pthread.h>
+
+pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
+
+void* thread_func(void* arg) {
+    // Acquire lock
+    pthread_mutex_lock(&mutex);
+    printf("Thread %d acquired lock\n", *(int*)arg);
+    
+    // Do some work
+    sleep(2);
+    
+    // Release lock
+    printf("Thread %d releasing lock\n", *(int*)arg);
+    pthread_mutex_unlock(&mutex);
+    return NULL;
+}
+
+int main() {
+    pthread_t threads[3];
+    int thread_args[3] = {1, 2, 3};
+    
+    // Create threads
+    for (int i = 0; i < 3; i++) {
+        pthread_create(&threads[i], NULL, thread_func, &thread_args[i]);
+    }
+    
+    // Wait for threads to finish
+    for (int i = 0; i < 3; i++) {
+        pthread_join(threads[i], NULL);
+    }
+    
+    return 0;
+}
+

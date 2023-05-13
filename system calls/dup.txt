@@ -1,0 +1,15 @@
+#include<stdio.h>
+#include<unistd.h>
+#include<fcntl.h>
+#include<stdlib.h>
+int main()
+{
+        int fd,fd1,n;
+        char* s;
+        fd=open("2.txt",O_WRONLY | O_APPEND);
+        n=read(fd,s,5);
+        fd1=dup(fd);
+        printf("%s\n",s);
+        write (fd1,"this is done using dup file",27);
+        return 0;
+}

@@ -1,0 +1,67 @@
+#include <stdio.h>
+
+int main() {
+    int n;
+    printf("Enter the no. of processes: ");
+    scanf("%d",&n);
+    int pr[n];
+    int ar_t[n];
+    int br_t[n];
+    for(int i=0;i<n;i++)
+    {
+        printf("Enter process number: ");
+        scanf("%d",&pr[i]);
+        printf("Enter process %d arrival time: ",pr[i]);
+        scanf("%d",&ar_t[i]);
+        printf("Enter process %d burst time: ",pr[i]);
+        scanf("%d",&br_t[i]);
+    }
+    int tmp;
+    for(int i=0;i<n;i++)
+    {
+        for(int j=i+1;j<n;j++)
+        {
+            if(ar_t[i]>ar_t[j])
+            {
+                tmp=ar_t[i];
+                ar_t[i]=ar_t[j];
+                ar_t[j]=tmp;
+                
+                tmp=pr[i];
+                pr[i]=pr[j];
+                pr[j]=tmp;
+                
+                tmp=br_t[i];
+                br_t[i]=br_t[j];
+                br_t[j]=tmp;
+            }
+        }
+    }
+    int wt[n];
+    int tat[n];
+    wt[0]=ar_t[0];
+    tat[0]=wt[0]+br_t[0]-ar_t[0];
+    int tot_wt=wt[0];
+    int tot_tat=tat[0];
+    for(int i=1;i<n;i++)
+    {
+        if(wt[i-1]+br_t[i-1]>ar_t[i])
+        {
+            wt[i]=wt[i-1]+br_t[i-1];
+        }
+        else
+        {
+            wt[i]=ar_t[i];
+        }
+            tat[i]=wt[i]+br_t[i]-ar_t[i];
+            tot_wt=tot_wt+wt[i];
+            tot_tat=tot_tat+tat[i];
+    }
+    printf("Process\t Arrival Time\t Burst Time     Completion Time      Waiting Time\t Turn Around Time\n");
+    for(int i=0;i<n;i++)
+    {
+        printf("%d\t %d\t\t %d\t\t   %d\t\t\t %d\t\t %d\n",pr[i],ar_t[i],br_t[i],tat[i]+ar_t[i],wt[i],tat[i]);
+    }
+    printf("Average waiting time: %f\n",(float) tot_wt/(float) n);
+    printf("Average Turn Around time: %f\n",(float) tot_tat/(float) n);
+}

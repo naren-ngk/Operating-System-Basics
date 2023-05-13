@@ -1,0 +1,40 @@
+#define _GNU_SOURCE
+#include<stdio.h>
+#include<sys/types.h>
+#include<unistd.h>
+#include<sched.h>
+#include<stdlib.h>
+#include<sys/wait.h>
+//#define STACK 1000
+int child(void *arg)
+{
+        printf("Child process : %d\n",getpid());
+        return 0;
+}
+int main()
+{
+        char *stack, *stack_top;
+        pid_t p;
+
+        stack = malloc(1024*1024);
+
+        if (stack == NULL)
+        {
+                perror("malloc");
+                exit(EXIT_FAILURE);
+        }
+
+        stack_top = stack + 1024*1024;
+
+        //p = clone(child, stack_top, CLONE_VM| CLONE_FS| CLONE_FILES | CLONE_SIGHAND, NULL);
+        p = clone(child, stack_top, SIGCHLD, NULL);
+        if (p == -1)
+        {
+                perror("clone");
+                exit(EXIT_FAILURE);
+        }
+
+        printf("Parent process: %d\n",getpid());
+
+        return 0;
+}

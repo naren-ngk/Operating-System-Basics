@@ -1,0 +1,48 @@
+#!/bin/bash
+
+#Write a shell script to check whether the given string is a palindrome or not.
+
+
+echo "Enter string: "
+
+read s
+
+l=${#s}
+
+echo "Enter subset:"
+
+read sub
+
+len=${#sub}
+
+for(( i=0;i<l;i++ ))
+do
+                count=0
+                val=$i
+                for(( j=0;j<len;j++ ))
+                do
+                       if [ "${s:i:1}" == "${sub:j:1}" ]
+                       then
+                                count=` expr $count + 1 `
+                                i=` expr $i + 1 `
+                        else
+                                count=0
+                        fi
+                done
+        if [ $count == $len ]
+        then
+                echo "yes! Substring exists!"
+                for(( k=0;k<l;k++ ))
+                do
+                        if [ $k == $val ]
+                        then
+                        k=` expr $k + $len `
+                        k=` expr $k - 1 `
+                else
+                        echo -n "${s:k:1}"
+                fi
+        done
+        fi
+done
+echo " "
+echo "Program completed"

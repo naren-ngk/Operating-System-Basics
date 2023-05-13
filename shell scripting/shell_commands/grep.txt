@@ -1,0 +1,42 @@
+1. grep -c "unix" sample.txt
+o/p: 2
+
+2.  grep -h "unix" sample.txt
+o/p: unix is great os. unix was developed in Bell labs.
+uNix is easy to learn. unix is a multiuser os. Learn unix. unix is a powerful.
+
+3. grep -n "unix" sample.txt
+o/p: 
+	1:unix is great os. unix was developed in Bell labs.
+	4:uNix is easy to learn. unix is a multiuser os. Learn unix. unix is a 	powerful.
+
+4. grep -v "unix" sample.txt
+o/p:
+	learn operating system.
+	Unix linux which one you choose.
+s
+5. grep -w "unix" sample.txt
+o/p: 
+	unix is great os. unix was developed in Bell labs.
+	uNix is easy to learn. unix is a multiuser os. Learn unix. unix is a 	powerful.
+
+6. grep -o "unix" sample.txt
+o/p:
+unix
+unix
+unix
+unix
+unix
+
+7. grep -n "^unix" sample.txt
+o/p: 
+	1:unix is great os. unix was developed in Bell labs.
+
+8. grep "labs.$" sample.txt
+o/p: unix is great os. unix was developed in Bell labs.
+
+9. grep -A 1 learn sample.txt
+o/p:
+	learn operating system.
+	Unix linux which one you choose.
+	uNix is easy to learn. unix is a multiuser os. Learn unix. unix is a 	powerful.

@@ -1,0 +1,29 @@
+$sed 's/unix/linux/' geekfile.txt
+
+$sed 's/unix/linux/g' geekfile.txt
+
+$sed 's/unix/linux/3g' geekfile.txt
+
+$ echo "Welcome To The Geek Stuff" | sed 's/\(\b[A-Z]\)/\(\1\)/g'
+o/p: (W)elcome (T)o (T)he (G)eek (S)tuff
+
+$sed '3 s/unix/linux/' geekfile.txt
+
+$sed 's/unix/linux/p' geekfile.txt
+
+$sed -n 's/unix/linux/p' geekfile.txt
+
+$sed '1,3 s/unix/linux/' geekfile.txt
+
+$sed '2,$ s/unix/linux/' geekfile.txt
+
+$ sed 'nd' filename.txt
+
+$ sed 'x,yd' filename.txt
+
+$ sed 'nth,$d' filename.txt
+
+$ sed '/pattern/d' filename.txt
+
+$ sed 's/\(.*\)unix/\linux/' sampple.txt
+

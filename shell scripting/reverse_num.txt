@@ -1,0 +1,24 @@
+#!/bin/bash
+
+sum=0
+
+echo "Enter a number: "
+
+read num
+
+while [ "$num" -ne 0 ]
+
+do
+
+        rem=` expr $num % 10 `
+
+        sum=` expr $sum \* 10 `
+
+        sum=` expr $sum + $rem `
+
+        num=` expr $num / 10 `
+
+done
+
+
+echo "Reversed number: $sum"

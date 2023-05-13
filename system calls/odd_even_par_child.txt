@@ -1,0 +1,30 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<unistd.h>
+#include<sys/types.h>
+#include<sys/wait.h>
+
+
+int main()
+{
+    int n,m;
+    printf("Enter the starting no:");
+    scanf("%d",&n);
+    printf("Enter the ending no:");
+    scanf("%d",&m);
+    if (fork()==0){
+            printf("\nChild\n");
+            for(int i=n;i<=m;i++){
+                    if (i%2!=0)
+                            printf("%d \n",i);
+            }
+    }
+    else{
+            printf("\nParent\n");
+            for(int i=n;i<=m;i++){
+                    if (i%2==0)
+                            printf("%d \n",i);
+            }
+    }
+
+}
